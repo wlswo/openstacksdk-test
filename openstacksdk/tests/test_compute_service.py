@@ -1,9 +1,9 @@
 import errno
 import time
 
+import openstack
+import os
 from django.test import TestCase
-
-import openstack, os
 
 # Initialize and turn on debug logging
 openstack.enable_logging(debug=False)
@@ -116,3 +116,4 @@ class TestClass(TestCase):
         conn.compute.delete_server(server)
 
         self.assertEquals(False, wait_for_server_deletion(conn, server.id))
+
