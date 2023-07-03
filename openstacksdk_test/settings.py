@@ -26,8 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-print(env.str("OPENSTACK_AUTH_URL"))
-
 # Application definition
 
 INSTALLED_APPS = [
