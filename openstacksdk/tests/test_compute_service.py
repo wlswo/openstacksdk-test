@@ -47,7 +47,6 @@ def create_keypair():
 
 
 def wait_for_server_deletion(conn, server_id):
-    time_out = 10
     cnt = 0
     while cnt <= 10:
         cnt += 1
