@@ -33,7 +33,7 @@ def create_keypair():
         print(keypair)
 
         try:
-            os.mkdir('/Users/byun/Downloads')
+            os.mkdir('/Downloads')
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise e
@@ -74,10 +74,6 @@ class TestClass(TestCase):
         print("setUp: Run once for every test method to setup clean data.")
 
     def test01_서버_개수_확인(self):
-        # List the servers
-        # for server in conn.compute.servers():
-        #     json_formatted_str = json.dumps(server.to_dict()['instance_name'], indent=2)
-        #     print(json_formatted_str)
         count = 0
         for _ in conn.compute.servers():
             count += 1
@@ -89,14 +85,12 @@ class TestClass(TestCase):
         image = conn.image.find_image('cirros')
         flavor = conn.compute.find_flavor('m1.small')
         network = conn.network.find_network('private')
-        keypair = create_keypair()
 
         server = conn.compute.create_server(
             name=SERVER_NAME,
             image_id=image.id,
             flavor_id=flavor.id,
             networks=[{"uuid": network.id}],
-            key_name=keypair.name,
         )
 
         server = conn.compute.wait_for_server(server)
@@ -115,4 +109,3 @@ class TestClass(TestCase):
         conn.compute.delete_server(server)
 
         self.assertEquals(False, wait_for_server_deletion(conn, server.id))
-
